@@ -32,7 +32,6 @@ class ReactBoard extends React.Component {
   render() {
     return (
       <div className='board'>
-        <h3>This is the board!</h3>
         {this.renderRows()}
       </div>
     );
