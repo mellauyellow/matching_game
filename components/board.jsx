@@ -11,7 +11,8 @@ class ReactBoard extends React.Component {
       return (
         <ReactCard
           card={card}
-          key={`${card.value}${card.suit}`} />
+          key={`${card.value}${card.suit}`}
+          updateGame={this.props.updateGame} />
       );
     });
   }

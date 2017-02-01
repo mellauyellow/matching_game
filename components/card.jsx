@@ -8,8 +8,8 @@ class Card extends React.Component {
   render() {
     const {card} = this.props;
     return (
-      <div className='card'>
-        <h3>{card.value}</h3>
+      <div className={`card ${card.shown}`} onClick={() => (this.props.updateGame(card))}>
+        <h3 className={card.shown}>{card.value}</h3>
       </div>
     );
   }
