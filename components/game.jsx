@@ -9,9 +9,16 @@ class ReactGame extends React.Component {
     const board = new Board();
     this.state = {
       board: board,
-      card1: null
+      card1: null,
+      card2: null
     };
     this.updateGame = this.updateGame.bind(this);
+  }
+
+  componentDidUpdate() {
+    if (this.state.card1 && this.state.card2) {
+      setTimeout(() => (this.checkforMatch()), 2000);
+    }
   }
 
   updateGame(card) {
@@ -19,16 +26,20 @@ class ReactGame extends React.Component {
 
     if (!this.state.card1) {
       this.setState({card1: card});
-    } else if (this.state.board.isMatch(card, this.state.card1)) {
-      this.state.board.recordMatch(card, this.state.card1);
-      this.setState({board: this.state.board, card1: null});
     } else {
-      setTimeout(() => {
-        card.toggleCardShown();
-        this.state.card1.toggleCardShown();
-        this.setState({card1: null});
-      }, 3000);
+      this.setState({card2: card});
     }
+  }
+
+  checkforMatch() {
+    if (this.state.board.isMatch(this.state.card1, this.state.card2)) {
+     this.state.board.recordMatch(this.state.card1, this.state.card2);
+     this.setState({board: this.state.board, card1: null, card2: null});
+   } else {
+     this.state.card1.toggleCardShown();
+     this.state.card2.toggleCardShown();
+     this.setState({board: this.state.board, card1: null, card2: null});
+   }
   }
 
   render() {
