@@ -58,6 +58,8 @@ class ReactGame extends React.Component {
 
     return (
       <div className='game'>
+        <h2>Card Matching Game</h2>
+        <h4>Number of Matches: {this.state.board.numMatches}</h4>
         {modal}
         <ReactBoard board={this.state.board} updateGame={this.updateGame}/>
       </div>
