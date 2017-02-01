@@ -7,6 +7,10 @@ body, h1, h2, h3, h4, h5, h6, div {
   vertical-align: baseline;
 }
 
+.game {
+  position: relative;
+}
+
 .board {
   display: flex;
   flex-direction: column;
@@ -47,4 +51,23 @@ body, h1, h2, h3, h4, h5, h6, div {
 
 .matched {
   visibility: hidden;
+}
+
+.modal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-text {
+  width: 300px;
+  height: 200px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
