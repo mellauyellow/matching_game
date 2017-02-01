@@ -8,7 +8,7 @@ class Card extends React.Component {
   render() {
     const {card} = this.props;
     return (
-      <div className={`card ${card.shown}`} onClick={() => (this.props.updateGame(card))}>
+      <div className={`card ${card.shown} ${card.matched}`} onClick={() => (this.props.updateGame(card))}>
         <h3 className={card.shown}>{card.value}</h3>
       </div>
     );
