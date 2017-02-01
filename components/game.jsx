@@ -50,17 +50,17 @@ class ReactGame extends React.Component {
 
   render() {
     let modal;
-    if (this.state.board.isWon()) {
+    // if (this.state.board.isWon()) {
       modal = (
         <div className='modal'>
           <div className='modal-text'>
-            <h2>You've won!</h2>
-            <h3>Would you like to play again?</h3>
+            <h3>You've won!</h3>
+            <h4>Would you like to play again?</h4>
             <button onClick={this.newGame}>Play again</button>
           </div>
         </div>
       );
-    }
+    // }
 
     return (
       <div className='game'>
