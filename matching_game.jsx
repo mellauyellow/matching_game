@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Game from './components/game';
+import ReactGame from './components/game';
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <Game />,
+    <ReactGame />,
     document.getElementById('main')
   );
 });

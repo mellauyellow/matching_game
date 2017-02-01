@@ -1,13 +1,23 @@
 import React from 'react';
+import Board from '../lib/board';
+import ReactBoard from './board';
 
-class Game extends React.Component {
-  render () {
+
+class ReactGame extends React.Component {
+  constructor(props) {
+    super(props);
+    const board = new Board();
+    this.state = {
+      board: board
+    };
+  }
+  render() {
     return (
       <div className='game'>
-        <h2>This is the Game!</h2>
+        <ReactBoard board={this.state.board}/>
       </div>
     );
   }
 }
 
-export default Game;
+export default ReactGame;
