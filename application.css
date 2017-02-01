@@ -52,7 +52,7 @@ h4 {
 }
 
 .card.hidden {
-  background: red;
+  background: blue;
 }
 
 .card.shown {

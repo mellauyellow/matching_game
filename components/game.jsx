@@ -23,9 +23,10 @@ class ReactGame extends React.Component {
 
   updateGame(card) {
     card.toggleCardShown();
-
     if (!this.state.card1) {
       this.setState({card1: card});
+    } else if (card === this.state.card1) {
+      this.setState({card1: null});
     } else {
       this.setState({card2: card});
     }
