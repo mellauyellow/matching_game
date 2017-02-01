@@ -2,7 +2,6 @@ import React from 'react';
 import Board from '../lib/board';
 import ReactBoard from './board';
 
-
 class ReactGame extends React.Component {
   constructor(props) {
     super(props);
@@ -13,6 +12,7 @@ class ReactGame extends React.Component {
       card2: null
     };
     this.updateGame = this.updateGame.bind(this);
+    this.newGame = this.newGame.bind(this);
   }
 
   componentDidUpdate() {
@@ -43,6 +43,11 @@ class ReactGame extends React.Component {
    }
   }
 
+  newGame() {
+    const board = new Board();
+    this.setState({board: board, card1: null, card2: null});
+  }
+
   render() {
     let modal;
     if (this.state.board.isWon()) {
@@ -51,7 +56,7 @@ class ReactGame extends React.Component {
           <div className='modal-text'>
             <h2>You've won!</h2>
             <h3>Would you like to play again?</h3>
-            <button>Play again</button>
+            <button onClick={this.newGame}>Play again</button>
           </div>
         </div>
       );
