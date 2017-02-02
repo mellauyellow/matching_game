@@ -21575,13 +21575,17 @@
 	  }, {
 	    key: 'checkforMatch',
 	    value: function checkforMatch() {
-	      if (this.state.board.isMatch(this.state.card1, this.state.card2)) {
-	        this.state.board.recordMatch(this.state.card1, this.state.card2);
-	        this.setState({ board: this.state.board, card1: null, card2: null });
+	      var card1 = this.state.card1,
+	          card2 = this.state.card2,
+	          board = this.state.board;
+
+	      if (board.isMatch(card1, card2)) {
+	        board.recordMatch(card1, card2);
+	        this.setState({ board: board, card1: null, card2: null });
 	      } else {
-	        this.state.card1.toggleCardShown();
-	        this.state.card2.toggleCardShown();
-	        this.setState({ board: this.state.board, card1: null, card2: null });
+	        card1.toggleCardShown();
+	        card2.toggleCardShown();
+	        this.setState({ board: board, card1: null, card2: null });
 	      }
 	    }
 	  }, {
@@ -21667,11 +21671,16 @@
 
 	var Board = function () {
 	  function Board() {
+	    var width = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 13;
+	    var height = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 4;
+
 	    _classCallCheck(this, Board);
 
+	    // decided to make the board size configurable, just in case it needed to be changed
+	    this.width = width;
+	    this.height = height;
 	    this.grid = [];
 	    this.numMatches = 0;
-	    this.matchedCards = [];
 	    this.generateBoard();
 	  }
 
@@ -21680,12 +21689,10 @@
 	    value: function generateBoard() {
 	      var deck = new _deck2.default();
 
-	      // decided to hard-code the size of the board as 4x13 given a deck of cards will always only have 52 cards in it
-	      for (var i = 0; i < 4; i++) {
+	      for (var i = 0; i < this.height; i++) {
 	        this.grid.push([]);
-	        for (var j = 0; j < 13; j++) {
+	        for (var j = 0; j < this.width; j++) {
 	          var card = deck.cards.pop();
-	          card.position = [i, j];
 	          this.grid[i].push(card);
 	        }
 	      }
@@ -21693,12 +21700,12 @@
 	  }, {
 	    key: 'isWon',
 	    value: function isWon() {
-	      return this.numMatches === 26;
+	      return this.numMatches === this.width * this.height / 2;
 	    }
 	  }, {
 	    key: 'isMatch',
 	    value: function isMatch(card1, card2) {
-	      return card1.value === card2.value && card1 !== card2;
+	      return card1.value === card2.value;
 	    }
 	  }, {
 	    key: 'recordMatch',
@@ -21804,7 +21811,6 @@
 	    this.suit = suit;
 	    this.shown = 'hidden';
 	    this.matched = 'unmatched';
-	    this.position = null;
 	  }
 
 	  _createClass(Card, [{
@@ -21863,13 +21869,13 @@
 
 	  _createClass(ReactBoard, [{
 	    key: 'renderCards',
-	    value: function renderCards(row) {
+	    value: function renderCards(row, rowIndex) {
 	      var _this2 = this;
 
-	      return row.map(function (card) {
+	      return row.map(function (card, cardIndex) {
 	        return _react2.default.createElement(_card2.default, {
 	          card: card,
-	          key: '' + card.value + card.suit,
+	          key: rowIndex + '-' + cardIndex,
 	          updateGame: _this2.props.updateGame });
 	      });
 	    }
@@ -21884,7 +21890,7 @@
 	        return _react2.default.createElement(
 	          'div',
 	          { className: 'row', key: 'row' + i },
-	          _this3.renderCards(row)
+	          _this3.renderCards(row, i)
 	        );
 	      });
 	    }
@@ -21945,28 +21951,37 @@
 	      var card = this.props.card;
 
 	      var icon = void 0;
-	      if (card.suit === 'hearts') {
-	        icon = _react2.default.createElement('i', { className: 'flaticon-heart ' + card.shown });
-	      } else if (card.suit === 'spades') {
-	        icon = _react2.default.createElement('i', { className: 'flaticon-spades ' + card.shown });
-	      } else if (card.suit === 'clubs') {
-	        icon = _react2.default.createElement('i', { className: 'flaticon-clover ' + card.shown });
-	      } else {
-	        icon = _react2.default.createElement('i', { className: 'flaticon-diamond ' + card.shown });
+
+	      switch (card.suit) {
+	        case 'hearts':
+	          icon = _react2.default.createElement('i', { className: 'flaticon-heart ' + card.shown });
+	          break;
+	        case 'spades':
+	          icon = _react2.default.createElement('i', { className: 'flaticon-spades ' + card.shown });
+	          break;
+	        case 'clubs':
+	          icon = _react2.default.createElement('i', { className: 'flaticon-clover ' + card.shown });
+	          break;
+	        default:
+	          icon = _react2.default.createElement('i', { className: 'flaticon-diamond ' + card.shown });
 	      }
 
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'card ' + card.shown + ' ' + card.matched, onClick: function onClick() {
+	      if (card.shown === 'shown') {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'card ' + card.shown + ' ' + card.matched },
+	          _react2.default.createElement(
+	            'h3',
+	            { className: card.shown },
+	            card.value
+	          ),
+	          icon
+	        );
+	      } else {
+	        return _react2.default.createElement('div', { className: 'card', onClick: function onClick() {
 	            return _this2.props.updateGame(card);
-	          } },
-	        _react2.default.createElement(
-	          'h3',
-	          { className: card.shown },
-	          card.value
-	        ),
-	        icon
-	      );
+	          } });
+	      }
 	    }
 	  }]);
 
