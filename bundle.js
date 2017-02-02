@@ -21546,6 +21546,7 @@
 	    };
 	    _this.updateGame = _this.updateGame.bind(_this);
 	    _this.newGame = _this.newGame.bind(_this);
+	    _this.hasTwoCardsShowing = _this.hasTwoCardsShowing.bind(_this);
 	    return _this;
 	  }
 
@@ -21595,8 +21596,13 @@
 	      this.setState({ board: board, card1: null, card2: null });
 	    }
 	  }, {
-	    key: 'render',
-	    value: function render() {
+	    key: 'hasTwoCardsShowing',
+	    value: function hasTwoCardsShowing() {
+	      return !!(this.state.card1 && this.state.card2);
+	    }
+	  }, {
+	    key: 'renderModal',
+	    value: function renderModal() {
 	      var modal = void 0;
 	      if (this.state.board.isWon()) {
 	        modal = _react2.default.createElement(
@@ -21624,6 +21630,11 @@
 	        );
 	      }
 
+	      return modal;
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'game' },
@@ -21638,8 +21649,8 @@
 	          'Number of Matches: ',
 	          this.state.board.numMatches
 	        ),
-	        modal,
-	        _react2.default.createElement(_board4.default, { board: this.state.board, updateGame: this.updateGame })
+	        this.renderModal(),
+	        _react2.default.createElement(_board4.default, { board: this.state.board, updateGame: this.updateGame, hasTwoCardsShowing: this.hasTwoCardsShowing })
 	      );
 	    }
 	  }]);
@@ -21876,7 +21887,8 @@
 	        return _react2.default.createElement(_card2.default, {
 	          card: card,
 	          key: rowIndex + '-' + cardIndex,
-	          updateGame: _this2.props.updateGame });
+	          updateGame: _this2.props.updateGame,
+	          hasTwoCardsShowing: _this2.props.hasTwoCardsShowing });
 	      });
 	    }
 	  }, {
@@ -21940,14 +21952,23 @@
 	  function Card(props) {
 	    _classCallCheck(this, Card);
 
-	    return _possibleConstructorReturn(this, (Card.__proto__ || Object.getPrototypeOf(Card)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (Card.__proto__ || Object.getPrototypeOf(Card)).call(this, props));
+
+	    _this.handleClick = _this.handleClick.bind(_this);
+	    return _this;
 	  }
 
 	  _createClass(Card, [{
+	    key: 'handleClick',
+	    value: function handleClick() {
+	      // only enable clicking on cards if there aren't two cards already face-up
+	      if (!this.props.hasTwoCardsShowing()) {
+	        this.props.updateGame(this.props.card);
+	      }
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
-
 	      var card = this.props.card;
 
 	      var icon = void 0;
@@ -21978,9 +21999,7 @@
 	          icon
 	        );
 	      } else {
-	        return _react2.default.createElement('div', { className: 'card', onClick: function onClick() {
-	            return _this2.props.updateGame(card);
-	          } });
+	        return _react2.default.createElement('div', { className: 'card', onClick: this.handleClick });
 	      }
 	    }
 	  }]);
