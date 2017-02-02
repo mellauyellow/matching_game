@@ -17,7 +17,7 @@ class ReactGame extends React.Component {
 
   componentDidUpdate() {
     if (this.state.card1 && this.state.card2) {
-      setTimeout(() => (this.checkforMatch()), 2000);
+      setTimeout(() => (this.checkforMatch()), 1500);
     }
   }
 
@@ -50,7 +50,7 @@ class ReactGame extends React.Component {
 
   render() {
     let modal;
-    // if (this.state.board.isWon()) {
+    if (this.state.board.isWon()) {
       modal = (
         <div className='modal'>
           <div className='modal-text'>
@@ -60,7 +60,7 @@ class ReactGame extends React.Component {
           </div>
         </div>
       );
-    // }
+    }
 
     return (
       <div className='game'>
