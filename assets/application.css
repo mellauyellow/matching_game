@@ -59,11 +59,12 @@ h4 {
   background: blue;
 }
 
-.card.hidden {
-}
-
 .card.shown {
   background: white;
+}
+
+.card.shown:hover {
+  cursor: default;
 }
 
 .card h3 {
