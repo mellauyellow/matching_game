@@ -6,6 +6,8 @@
 
 This is a version of the card matching game, Memory, using a standard 52-card deck. Cards are selected two at a time an are removed from the board if their values match.
 
+This game was built with React.js.
+
 ### Setup
 
   + Clone repository
