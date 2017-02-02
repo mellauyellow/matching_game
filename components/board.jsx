@@ -12,7 +12,8 @@ class ReactBoard extends React.Component {
         <ReactCard
           card={card}
           key={`${rowIndex}-${cardIndex}`}
-          updateGame={this.props.updateGame} />
+          updateGame={this.props.updateGame}
+          hasTwoCardsShowing={this.props.hasTwoCardsShowing}/>
       );
     });
   }

@@ -3,6 +3,14 @@ import React from 'react';
 class Card extends React.Component {
   constructor(props) {
     super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    // only enable clicking on cards if there aren't two cards already face-up
+    if (!this.props.hasTwoCardsShowing()) {
+      this.props.updateGame(this.props.card);
+    }
   }
 
   render() {
@@ -32,7 +40,7 @@ class Card extends React.Component {
       );
     } else {
       return (
-        <div className='card' onClick={() => (this.props.updateGame(card))}></div>
+        <div className='card' onClick={this.handleClick}></div>
       );
     }
   }
