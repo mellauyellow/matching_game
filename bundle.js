@@ -21557,7 +21557,7 @@
 	      if (this.state.card1 && this.state.card2) {
 	        setTimeout(function () {
 	          return _this2.checkforMatch();
-	        }, 2000);
+	        }, 1500);
 	      }
 	    }
 	  }, {
@@ -21594,31 +21594,31 @@
 	    key: 'render',
 	    value: function render() {
 	      var modal = void 0;
-	      // if (this.state.board.isWon()) {
-	      modal = _react2.default.createElement(
-	        'div',
-	        { className: 'modal' },
-	        _react2.default.createElement(
+	      if (this.state.board.isWon()) {
+	        modal = _react2.default.createElement(
 	          'div',
-	          { className: 'modal-text' },
+	          { className: 'modal' },
 	          _react2.default.createElement(
-	            'h3',
-	            null,
-	            'You\'ve won!'
-	          ),
-	          _react2.default.createElement(
-	            'h4',
-	            null,
-	            'Would you like to play again?'
-	          ),
-	          _react2.default.createElement(
-	            'button',
-	            { onClick: this.newGame },
-	            'Play again'
+	            'div',
+	            { className: 'modal-text' },
+	            _react2.default.createElement(
+	              'h3',
+	              null,
+	              'You\'ve won!'
+	            ),
+	            _react2.default.createElement(
+	              'h4',
+	              null,
+	              'Would you like to play again?'
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { onClick: this.newGame },
+	              'Play again'
+	            )
 	          )
-	        )
-	      );
-	      // }
+	        );
+	      }
 
 	      return _react2.default.createElement(
 	        'div',
