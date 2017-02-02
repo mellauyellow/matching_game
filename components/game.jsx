@@ -13,6 +13,7 @@ class ReactGame extends React.Component {
     };
     this.updateGame = this.updateGame.bind(this);
     this.newGame = this.newGame.bind(this);
+    this.hasTwoCardsShowing = this.hasTwoCardsShowing.bind(this);
   }
 
   componentDidUpdate() {
@@ -52,7 +53,11 @@ class ReactGame extends React.Component {
     this.setState({board: board, card1: null, card2: null});
   }
 
-  render() {
+  hasTwoCardsShowing() {
+    return !!(this.state.card1 && this.state.card2);
+  }
+
+  renderModal() {
     let modal;
     if (this.state.board.isWon()) {
       modal = (
@@ -66,12 +71,16 @@ class ReactGame extends React.Component {
       );
     }
 
+    return modal;
+  }
+
+  render() {
     return (
       <div className='game'>
         <h2>Card Matching Game</h2>
         <h4>Number of Matches: {this.state.board.numMatches}</h4>
-        {modal}
-        <ReactBoard board={this.state.board} updateGame={this.updateGame}/>
+        {this.renderModal()}
+        <ReactBoard board={this.state.board} updateGame={this.updateGame} hasTwoCardsShowing={this.hasTwoCardsShowing}/>
       </div>
     );
   }
