@@ -33,14 +33,18 @@ class ReactGame extends React.Component {
   }
 
   checkforMatch() {
-    if (this.state.board.isMatch(this.state.card1, this.state.card2)) {
-     this.state.board.recordMatch(this.state.card1, this.state.card2);
-     this.setState({board: this.state.board, card1: null, card2: null});
-   } else {
-     this.state.card1.toggleCardShown();
-     this.state.card2.toggleCardShown();
-     this.setState({board: this.state.board, card1: null, card2: null});
-   }
+    const card1 = this.state.card1,
+          card2 = this.state.card2,
+          board = this.state.board;
+
+    if (board.isMatch(card1, card2)) {
+      board.recordMatch(card1, card2);
+      this.setState({board: board, card1: null, card2: null});
+    } else {
+      card1.toggleCardShown();
+      card2.toggleCardShown();
+      this.setState({board: board, card1: null, card2: null});
+    }
   }
 
   newGame() {

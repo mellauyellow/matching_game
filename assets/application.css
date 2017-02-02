@@ -56,14 +56,15 @@ h4 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.card.hidden {
   background: blue;
 }
 
 .card.shown {
   background: white;
+}
+
+.card.shown:hover {
+  cursor: default;
 }
 
 .card h3 {

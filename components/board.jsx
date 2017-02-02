@@ -6,12 +6,12 @@ class ReactBoard extends React.Component {
     super(props);
   }
 
-  renderCards(row) {
-    return row.map((card) => {
+  renderCards(row, rowIndex) {
+    return row.map((card, cardIndex) => {
       return (
         <ReactCard
           card={card}
-          key={`${card.value}${card.suit}`}
+          key={`${rowIndex}-${cardIndex}`}
           updateGame={this.props.updateGame} />
       );
     });
@@ -23,7 +23,7 @@ class ReactBoard extends React.Component {
     return grid.map((row, i) => {
       return (
         <div className="row" key={`row${i}`}>
-          {this.renderCards(row)}
+          {this.renderCards(row, i)}
         </div>
       );
     });
