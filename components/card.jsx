@@ -18,12 +18,18 @@ class Card extends React.Component {
       icon = <i className={`flaticon-diamond ${card.shown}`}></i>;
     }
 
-    return (
-      <div className={`card ${card.shown} ${card.matched}`} onClick={() => (this.props.updateGame(card))}>
-        <h3 className={card.shown}>{card.value}</h3>
-        {icon}
-      </div>
-    );
+    if (card.shown === 'shown') {
+      return (
+        <div className={`card ${card.shown} ${card.matched}`}>
+          <h3 className={card.shown}>{card.value}</h3>
+          {icon}
+        </div>
+      );
+    } else {
+      return (
+        <div className='card' onClick={() => (this.props.updateGame(card))}></div>
+      );
+    }
   }
 }
 
