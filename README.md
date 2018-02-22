@@ -1,4 +1,4 @@
-# Card Matching Game
+# Card Matching Game using React
 
 [Live demo][github-pages]
 
